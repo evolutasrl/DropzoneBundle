@@ -11,6 +11,9 @@ Features include:
 
 This bundle is well unit tested by phpspec.
 
+[![Build Status](https://travis-ci.org/evolutasrl/DropzoneBundle.svg)](https://travis-ci.org/evolutasrl/DropzoneBundle)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/evolutasrl/DropzoneBundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/evolutasrl/DropzoneBundle/?branch=master)
+
 Documentation
 ------------
 
@@ -41,4 +44,4 @@ Issues and feature requests are tracked in the [Github issue tracker](https://gi
 When reporting a bug, it may be a good idea to reproduce it in a basic project
 built using the [Symfony Standard Edition](https://github.com/symfony/symfony-standard)
 to allow developers of the bundle to reproduce the issue by simply cloning it
-and following some steps.s
+and following some steps.

@@ -1,0 +1,34 @@
+{
+  "name": "evolutasrl/dropzone-bundle",
+  "type": "symfony-bundle",
+  "description": "Symfony DropzoneBundle",
+  "keywords": ["File upload", "Dropzone"],
+  "homepage": "http://evolutasrl.github.com",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Brainrepo - Mauro Murru",
+      "email": "murru7@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.3.9",
+    "symfony/framework-bundle": "~2.7",
+    "symfony/twig-bundle": "~2.3",
+    "symfony/form": "~2.3"
+  },
+  "require-dev": {
+    "phpspec/phpspec": "~2.1"
+  },
+  "config": {
+    "bin-dir": "bin"
+  },
+  "autoload": {
+    "psr-4": { "Evoluta\\DropzoneBundle\\": "" }
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "1.0.x-dev"
+    }
+  }
+}
