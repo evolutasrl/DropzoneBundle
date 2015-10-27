@@ -2,11 +2,17 @@
 
 namespace spec\Evoluta\DropzoneBundle\Form\Type;
 
+use Evoluta\DropzoneBundle\Manager\S3BrowserUploadManagerInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
 class DropzoneS3FileTypeSpec extends ObjectBehavior
 {
+
+    public function let(S3BrowserUploadManagerInterface $s3BrowserUploadService)
+    {
+        $this->beConstructedWith($s3BrowserUploadService);
+    }
 
     public function it_is_initializable()
     {

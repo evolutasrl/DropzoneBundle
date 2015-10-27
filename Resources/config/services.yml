@@ -1,5 +1,9 @@
 services:
-    app.form.type.dropzoneS3File:
+    dropzoneBundle.s3BrowserUploadManager:
+        class: Evoluta\DropzoneBundle\Manager\S3BrowserUploadManager
+    dropzoneBundle.form.type.dropzoneS3File:
         class: Evoluta\DropzoneBundle\Form\Type\DropzoneS3FileType
+        arguments:
+          - @dropzoneBundle.s3BrowserUploadManager
         tags:
-            - { name: form.type, alias: dropzoneS3File }
+          - { name: form.type, alias: dropzoneS3File }

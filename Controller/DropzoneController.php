@@ -16,9 +16,9 @@ class DropzoneController extends FOSRestController
     public function testAction(Request $request)
     {
         $form = $this->createFormBuilder()
-            ->add('task', 'dropzoneS3File')
+            ->add('task', 'dropzoneS3File', array('attr'=>array('AWSAccessKeyId' => "ddsfasdfasd")))
             ->getForm();
 
-        return [ 'form' => $form];
+        return ['form' => $form];
     }
 }

@@ -1,10 +1,37 @@
 {% block dropzoneS3File_widget %}
     {% spaceless %}
         <div {{ block('widget_container_attributes') }}>
-            {{ form_widget(form) }}
+            {{- block('form_widget_simple') -}}
+
+            <div id="droparea" class="dropzone"></div>
         </div>
         <script>
+            Dropzone.autoDiscover = false;
 
+            $("div#droparea").dropzone({
+                url: '//s3-eu-west-1.amazonaws.com/123/',
+                autoDiscover: false,
+                init: function () {
+                    this.on("sending", function (file) {
+                        console.log('sending');
+                    });
+
+                    this.on("success", function (file) {
+                        console.log('success');
+                    });
+
+                    this.on("error", function (file, error) {
+                        console.log('error ' + error);
+                    });
+                    this.on("sending", function (file, xhr, formData) {
+                        formData.append("AWSAccessKeyId", "{{ attr['AWSAccessKeyId'] }}");
+                        formData.append("acl", "private");
+                        formData.append("success_action_status", "201");
+                        formData.append("policy", "policy");
+                        formData.append("signature", "201");
+                    });
+                }
+            });
         </script>
     {% endspaceless %}
 {% endblock %}
