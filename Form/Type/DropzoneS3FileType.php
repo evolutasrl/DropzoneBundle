@@ -5,17 +5,17 @@ namespace Evoluta\DropzoneBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class DropzoneFileField extends AbstractType
+class DropzoneS3FileType extends AbstractType
 {
 
     public function getName()
     {
-        return "dropzoneFile";
+        return "dropzoneS3File";
     }
 
     public function getParent()
     {
-        return "file";
+        return "url";
     }
 
     public function configureOptions(OptionsResolver $optionsResolver)

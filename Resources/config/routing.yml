@@ -1,0 +1,4 @@
+evoluta_cds_dms_stakeholder.profile:
+    resource: "@EvolutaDropzoneBundle/Controller/DropzoneController.php"
+    type:     annotation
+    prefix:   /{_guardian_company}/dropzone

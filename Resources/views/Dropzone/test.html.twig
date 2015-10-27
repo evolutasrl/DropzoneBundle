@@ -1,0 +1,45 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}
+    {{ "destination.dashboard"|trans }}
+{% endblock %}
+
+{% block body %}
+    <div class="page-content">
+
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tab-about">
+                            <div class="panel panel-midnightblue">
+                                <div class="panel-heading">
+                                    <h2>dgfhsfdfdgdfgdf</h2>
+                                </div>
+                                <div class="panel-body">
+                                    <form action="" method="post">
+                                        {{ form_rest(form) }}
+                                        <input type="submit" class="btn btn-success"
+                                               value="{{ "destination.companyShow.edit.update"|trans }}"/>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- .tab-content -->
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $("#company_telephone").inputmask("([+]99) - 999 9999999");
+            $("#company_mobilePhone").inputmask("([+]99) - 999 9999999");
+            $("#company_fax").inputmask("([+]99) - 999999[9999]");
+        });
+
+    </script>
+{% endblock %}

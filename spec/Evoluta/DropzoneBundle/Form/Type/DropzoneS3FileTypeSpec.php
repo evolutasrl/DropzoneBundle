@@ -5,17 +5,17 @@ namespace spec\Evoluta\DropzoneBundle\Form\Type;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
-class DropzoneFileFieldSpec extends ObjectBehavior
+class DropzoneS3FileTypeSpec extends ObjectBehavior
 {
 
     public function it_is_initializable()
     {
-        $this->shouldHaveType('Evoluta\DropzoneBundle\Form\Type\DropzoneFileField');
+        $this->shouldHaveType('Evoluta\DropzoneBundle\Form\Type\DropzoneS3FileType');
     }
 
     public function it_should_return_name()
     {
-        $this->getName()->shouldReturn('dropzoneFile');
+        $this->getName()->shouldReturn('dropzoneS3File');
     }
 
     public function it_should_return_parent()
