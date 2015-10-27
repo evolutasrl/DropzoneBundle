@@ -9,9 +9,9 @@ use Prophecy\Argument;
 class DropzoneS3FileTypeSpec extends ObjectBehavior
 {
 
-    public function let(S3BrowserUploadManagerInterface $s3BrowserUploadService)
+    public function let()
     {
-        $this->beConstructedWith($s3BrowserUploadService);
+        $this->beConstructedWith('key', 'secret', 'bucket');
     }
 
     public function it_is_initializable()

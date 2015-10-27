@@ -3,12 +3,12 @@
         <div {{ block('widget_container_attributes') }}>
             {{- block('form_widget_simple') -}}
 
-            <div id="droparea" class="dropzone"></div>
+            <div id="droparea-{{ name }}" class="dropzone"></div>
         </div>
         <script>
             Dropzone.autoDiscover = false;
 
-            $("div#droparea").dropzone({
+            $("div#droparea-{{ name }}").dropzone({
                 url: '//s3-eu-west-1.amazonaws.com/123/',
                 autoDiscover: false,
                 init: function () {
@@ -24,11 +24,11 @@
                         console.log('error ' + error);
                     });
                     this.on("sending", function (file, xhr, formData) {
-                        formData.append("AWSAccessKeyId", "{{ attr['AWSAccessKeyId'] }}");
-                        formData.append("acl", "private");
-                        formData.append("success_action_status", "201");
-                        formData.append("policy", "policy");
-                        formData.append("signature", "201");
+                        formData.append("AWSAccessKeyId", "{{ accessKey }}");
+                        formData.append("acl", "{{ acl }}");
+                        formData.append("success_action_status", "{{ successStatus }}");
+                        formData.append("policy", "{{ policy }}");
+                        formData.append("signature", "{{ signature }}");
                     });
                 }
             });
