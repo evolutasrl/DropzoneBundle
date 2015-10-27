@@ -20,7 +20,7 @@ class DropzoneS3FileTypeSpec extends ObjectBehavior
 
     public function it_should_return_parent()
     {
-        $this->getParent()->shouldReturn('file');
+        $this->getParent()->shouldReturn('url');
     }
 
     public function it_can_configure_option_resolver($resolver)
