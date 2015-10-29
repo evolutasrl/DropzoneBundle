@@ -4,6 +4,7 @@
             {{- block('form_widget_simple') -}}
             <div id="droparea-{{ name }}-errors" ></div>
             <div id="droparea-{{ name }}-currentfile" class="dropzone-selected-file">
+                {{ value }}
             </div>
             <div id="droparea-{{ name }}" class="dropzone"></div>
         </div>
@@ -14,7 +15,7 @@
             Dropzone.autoDiscover = false;
 
             $("div#droparea-{{ name }}").dropzone({
-                url: '//s3-eu-west-1.amazonaws.com/{{ bucket }}/',
+                url: '{{ endpoint }}{{ bucket }}/',
                 autoDiscover: false,
                 acceptedFiles: "{{ acceptedFiles }}",
                 maxFiles: 1,
@@ -33,7 +34,7 @@
                 init: function () {
                     //Init if there is something in the text field
                     if ($("input#{{ id }}").val() != "") {
-                        $("#droparea-{{ name }}-currentfile").html(this.options.previewTemplate);
+                        //$("#droparea-{{ name }}-currentfile").html(this.options.previewTemplate);
                     }
 
 

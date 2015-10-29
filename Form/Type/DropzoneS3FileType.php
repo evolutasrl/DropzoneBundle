@@ -17,9 +17,10 @@ class DropzoneS3FileType extends AbstractType
 
     private $configurations;
 
-    public function __construct($accessKey, $secret, $bucket)
+    public function __construct($endpoint, $accessKey, $secret, $bucket)
     {
         $this->configurations = array(
+            'endpoint' => $endpoint,
             'accessKey' => $accessKey,
             'acl' => 'private',
             'successStatus' => 201,
@@ -53,6 +54,7 @@ class DropzoneS3FileType extends AbstractType
 
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
+        $endpoint = $this->getCorrectOption('endpoint', $this->configurations, $options);
         $accessKey = $this->getCorrectOption('accessKey', $this->configurations, $options);
         $bucket = $this->getCorrectOption('bucket', $this->configurations, $options);
         $expireAt = $this->getCorrectOption('expireAt', $this->configurations, $options);
@@ -68,6 +70,7 @@ class DropzoneS3FileType extends AbstractType
         $view->vars = array_merge(
             $view->vars,
             array(
+                "endpoint" => $endpoint,
                 "accessKey" => $accessKey,
                 "bucket" => $bucket,
                 "acl" => $acl,

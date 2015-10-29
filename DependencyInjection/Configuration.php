@@ -22,6 +22,7 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
+            ->scalarNode('endpoint')->end()
             ->scalarNode('accessKey')->end()
             ->scalarNode('secret')->end()
             ->scalarNode('bucket')->end()

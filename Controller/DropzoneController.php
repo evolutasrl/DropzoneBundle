@@ -24,6 +24,7 @@ class DropzoneController extends FOSRestController
                 'task2',
                 'dropzoneS3File',
                 array(
+                    'endpoint' => '//test.it',
                     'acceptedFiles' => 'image/*',
                     'directory' => 'images/sub1/sub2'
                 )

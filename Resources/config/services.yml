@@ -2,6 +2,7 @@ services:
     dropzoneBundle.form.type.dropzoneS3File:
         class: Evoluta\DropzoneBundle\Form\Type\DropzoneS3FileType
         arguments:
+          - "%dropzone_endpoint%"
           - "%dropzone_accessKey%"
           - "%dropzone_secret%"
           - "%dropzone_bucket%"

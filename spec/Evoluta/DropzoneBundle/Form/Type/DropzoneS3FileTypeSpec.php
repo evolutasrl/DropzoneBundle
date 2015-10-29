@@ -11,7 +11,7 @@ class DropzoneS3FileTypeSpec extends ObjectBehavior
 
     public function let()
     {
-        $this->beConstructedWith('key', 'secret', 'bucket');
+        $this->beConstructedWith('endpoint', 'key', 'secret', 'bucket');
     }
 
     public function it_is_initializable()
