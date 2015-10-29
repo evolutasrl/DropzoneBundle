@@ -4,6 +4,8 @@ DropzoneBundle
 The DropzoneBundle adds support for a **direct S3 upload** in Symfony2 forms. 
 It provides a form type for sending files directly to your Amazon AWS S3 bucket without touch your webserver.
 
+Read more about this technique [in Aws website](http://docs.aws.amazon.com/AmazonS3/latest/API/sigv4-authentication-HTTPPOST.html).
+
 Features include:
 
 - Single file upload
@@ -13,11 +15,6 @@ This bundle is well unit tested by phpspec.
 
 [![Build Status](https://travis-ci.org/evolutasrl/DropzoneBundle.svg)](https://travis-ci.org/evolutasrl/DropzoneBundle)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/evolutasrl/DropzoneBundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/evolutasrl/DropzoneBundle/?branch=master)
-
-Installation
-------------
-
-All the installation instructions are located in the documentation.
 
 
 Installation
@@ -220,6 +217,36 @@ $form = $this->createFormBuilder()
 )
 ``````
 
+####ExpireAt
+The expiration element specifies the expiration date and time of the POST policy.
+Indicate how long the user can wait from page loading to finish upload.
+It expects to be given a string containing an English date format.
+You can use this keywords:
+
+- now
+- +1 hour
+- +4 hours
+- +1 day
+- +5 days
+- +1 week
+- +1 week 2 days 4 hours 2 seconds
+- next Thursday
+- last Monday
+
+Internal this function use strtotime read more in [php website](http://php.net/manual/en/function.strtotime.php).
+
+
+
+``````
+$form = $this->createFormBuilder()
+	->add(
+	'File upload',
+	'dropzoneS3File',
+	array(
+		'expireAt' => '+1 hour'
+	)
+)
+``````
 
 Usage - upload multiple
 -----------
@@ -229,6 +256,7 @@ Still in progress. Please help us!
 ###TODO
 
 - configure aws
+
 
 
 
