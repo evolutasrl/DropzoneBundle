@@ -35,7 +35,7 @@ class AwsUploadPolicySpec extends ObjectBehavior
                         '',
                     ),
                     array(
-                        'success_action_status' => 201,
+                        'success_action_status' => "201",
                     ),
                 ),
             )

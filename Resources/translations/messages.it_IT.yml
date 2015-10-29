@@ -1,0 +1,9 @@
+DropzoneBundle.dictDefaultMessageSingle: Trascina qui il tuo file o clicca per caricarne uno nuovo
+DropzoneBundle.dictFallbackMessage: Il tuo browser non supporta le funzioni di caricamento file, ti suggeriamo di aggiornarlo
+DropzoneBundle.dictInvalidFileType: Il file che stai provando a caricare non è supportato
+DropzoneBundle.dictFileTooBig: Il file che stai tentando di caricare è troppo pesante.
+DropzoneBundle.dictResponseError: Il server non permette il caricamento del file, prova a riaggiornare la pagina.
+DropzoneBundle.dictCancelUpload: Annulla
+DropzoneBundle.dictCancelUploadConfirmation: Vuoi davvero interrompere il caricamento?
+DropzoneBundle.dictRemoveFile: Rimuovi
+DropzoneBundle.dictMaxFilesExceeded: Non puoi superare il numero di file consentito per quest'area

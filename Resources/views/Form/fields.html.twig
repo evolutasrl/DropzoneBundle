@@ -2,33 +2,70 @@
     {% spaceless %}
         <div {{ block('widget_container_attributes') }}>
             {{- block('form_widget_simple') -}}
-
+            <div id="droparea-{{ name }}-errors" ></div>
+            <div id="droparea-{{ name }}-currentfile" class="dropzone-selected-file">
+            </div>
             <div id="droparea-{{ name }}" class="dropzone"></div>
         </div>
         <script>
+
+
+            $("input#{{ id }}").hide();
             Dropzone.autoDiscover = false;
 
             $("div#droparea-{{ name }}").dropzone({
-                url: '//s3-eu-west-1.amazonaws.com/123/',
+                url: '//s3-eu-west-1.amazonaws.com/{{ bucket }}/',
                 autoDiscover: false,
+                acceptedFiles: "{{ acceptedFiles }}",
+                maxFiles: 1,
+                addRemoveLinks: true,
+                maxFilesize: {{ maxFilesize }},
+                dictDefaultMessage: '{{ "DropzoneBundle.dictDefaultMessageSingle"|trans }}',
+                dictFallbackMessage: '{{ "DropzoneBundle.dictFallbackMessage"|trans }}',
+                dictInvalidFileType: '{{ "DropzoneBundle.dictInvalidFileType"|trans }}',
+                dictFileTooBig: '{{ "DropzoneBundle.dictFileTooBig"|trans }}',
+                dictResponseError: '{{ "DropzoneBundle.dictResponseError"|trans }}',
+                dictCancelUpload: '{{ "DropzoneBundle.dictCancelUpload"|trans }}',
+                dictCancelUploadConfirmation: '{{ "DropzoneBundle.dictCancelUploadConfirmation"|trans }}',
+                dictRemoveFile: '{{ "DropzoneBundle.dictRemoveFile"|trans }}',
+                dictMaxFilesExceeded: '{{ "DropzoneBundle.dictMaxFilesExceeded"|trans }}',
+
                 init: function () {
-                    this.on("sending", function (file) {
-                        console.log('sending');
-                    });
+                    //Init if there is something in the text field
+                    if ($("input#{{ id }}").val() != "") {
+                        $("#droparea-{{ name }}-currentfile").html(this.options.previewTemplate);
+                    }
+
 
                     this.on("success", function (file) {
-                        console.log('success');
+                        $("#droparea-{{ name }}-errors").html('');
+                        $("#droparea-{{ name }}-currentfile").html(file.previewElement);
+                        $("#droparea-{{ name }}").hide();
                     });
 
                     this.on("error", function (file, error) {
-                        console.log('error ' + error);
+                        $("input#{{ id }}").val('');
+                        $("#droparea-{{ name }}-errors").html('<div  class="alert alert-dismissable alert-danger m-xs ml-n  mr-n">' + error + '</div>');
+                        this.removeFile(file);
+                        $("#droparea-{{ name }}").show();
                     });
+
                     this.on("sending", function (file, xhr, formData) {
+                        $("#droparea-{{ name }}-errors").html('');
+                        var directory = ("{{ directory }}") ? "{{ directory }}/" : "";
+                        var name = directory + new Date().getTime() + "_" + file.name.toLowerCase().replace(/ +/g, '-');
+                        $("input#{{ id }}").val(name);
                         formData.append("AWSAccessKeyId", "{{ accessKey }}");
                         formData.append("acl", "{{ acl }}");
                         formData.append("success_action_status", "{{ successStatus }}");
                         formData.append("policy", "{{ policy }}");
                         formData.append("signature", "{{ signature }}");
+                        formData.append("key", name);
+                    });
+
+                    this.on("removedfile", function (file) {
+                        $("input#{{ id }}").val('');
+                        $("#droparea-{{ name }}").show();
                     });
                 }
             });

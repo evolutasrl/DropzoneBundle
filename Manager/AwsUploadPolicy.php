@@ -27,8 +27,9 @@ class AwsUploadPolicy
         $this->expireAt = $expireAt;
         $this->successStatus = $successStatus;
 
-        $this->base64Policy = base64_encode($this->generatePolicy());
-        $this->signature = base64_encode(hash_hmac('sha1', $this->base64Policy, $secret, true));
+        $policy = $this->generatePolicy();
+        $this->base64Policy = base64_encode($policy);
+        $this->signature = base64_encode(hash_hmac('sha1', $this->base64Policy, $secret, $raw_output = true));
     }
 
     /**
@@ -49,9 +50,9 @@ class AwsUploadPolicy
 
     private function generatePolicy()
     {
-        return json_encode(
+        $jsonPolicy =  json_encode(
             array(
-                'expiration' => date('Y-m-d\TG:i:s\Z', strtotime('+1 hours')),
+                'expiration' => date('Y-m-d\TG:i:s\Z', strtotime($this->expireAt)),
                 'conditions' => array(
                     array(
                         'bucket' => $this->bucket,
@@ -65,10 +66,40 @@ class AwsUploadPolicy
                         '',
                     ),
                     array(
-                        'success_action_status' => $this->successStatus,
+                        'success_action_status' => (string)$this->successStatus,
                     ),
                 ),
             )
         );
+//
+//        echo  $jsonPolicy;
+//
+//        $accesskey = 'AKIAJDHYBWBHOSUL63WA';
+//        $secret = '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';
+//        $bucket = 'leandmsdev';
+//        echo $this->successStatus;
+//        $jsonPolicy = json_encode(
+//            array(
+//                'expiration' => date('Y-m-d\TG:i:s\Z', strtotime('+1 hours')),
+//                'conditions' => array(
+//                    array(
+//                        'bucket' => $bucket,
+//                    ),
+//                    array(
+//                        'acl' => 'private',
+//                    ),
+//                    array(
+//                        'starts-with',
+//                        '$key',
+//                        '',
+//                    ),
+//                    array(
+//                        'success_action_status' => (string) $this->successStatus,
+//                    ),
+//                ),
+//            )
+//        );
+
+        return $jsonPolicy;
     }
 }
