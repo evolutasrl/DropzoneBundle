@@ -25,6 +25,7 @@ Installation is a quick (I promise!) 3 step process:
 1. Download DropzoneBundle using composer
 2. Enable the Bundle
 3. Configure the DropzoneBundle
+4. Javascript and css
 
 ###Step 1: Download DropzoneBundle using composer
    
@@ -70,7 +71,8 @@ Add the following configuration to your ``config.yml`` file.
     	secret: "%dropzone_secret%"
     	bucket: "%dropzone_bucket%"
     	
-
+###Step 4: Javascript and css
+Todo: describe assets dump and declare in main template.
 
 Usage - upload single
 ------------
