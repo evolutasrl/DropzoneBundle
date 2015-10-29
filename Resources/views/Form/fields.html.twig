@@ -2,9 +2,20 @@
     {% spaceless %}
         <div {{ block('widget_container_attributes') }}>
             {{- block('form_widget_simple') -}}
-            <div id="droparea-{{ name }}-errors" ></div>
+            <div id="droparea-{{ name }}-errors"></div>
             <div id="droparea-{{ name }}-currentfile" class="dropzone-selected-file">
-                {{ value }}
+                {% if value %}
+                <div class="dz-preview dz-processing dz-image-preview dz-success">
+                    <div class="dz-details">
+                        <div class="dz-filename"><span data-dz-name=""><i class="ti ti-clip"></i> {{ value|split('/')|last }}</span></div>
+                        {% if value matches '/\.(jpg|jpeg|png|gif)(?:[\?\#].*)?$/i' %}
+                            <img data-dz-thumbnail="" alt="cantina_web.jpg" src="{{ value }}">
+                        {% endif %}
+                    </div>
+
+                    <a class="dz-remove" href="javascript:removeFile{{ id }}()">Rimuovi</a>
+                </div>
+                {% endif %}
             </div>
             <div id="droparea-{{ name }}" class="dropzone"></div>
         </div>
@@ -34,6 +45,7 @@
                 init: function () {
                     //Init if there is something in the text field
                     if ($("input#{{ id }}").val() != "") {
+                        $("#droparea-{{ name }}").hide();
                         //$("#droparea-{{ name }}-currentfile").html(this.options.previewTemplate);
                     }
 
@@ -55,7 +67,7 @@
                         $("#droparea-{{ name }}-errors").html('');
                         var directory = ("{{ directory }}") ? "{{ directory }}/" : "";
                         var name = directory + new Date().getTime() + "_" + file.name.toLowerCase().replace(/ +/g, '-');
-                        $("input#{{ id }}").val(name);
+                        $("input#{{ id }}").val("{{ endpoint }}{{ bucket }}/" + name);
                         formData.append("AWSAccessKeyId", "{{ accessKey }}");
                         formData.append("acl", "{{ acl }}");
                         formData.append("success_action_status", "{{ successStatus }}");
@@ -70,6 +82,12 @@
                     });
                 }
             });
+
+            function removeFile{{ id }}(){
+                $("#droparea-{{ name }}-currentfile").html('');
+                $("input#{{ id }}").val('');
+                $("#droparea-{{ name }}").show();
+            }
         </script>
     {% endspaceless %}
 {% endblock %}

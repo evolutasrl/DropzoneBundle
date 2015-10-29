@@ -24,7 +24,6 @@ class DropzoneController extends FOSRestController
                 'task2',
                 'dropzoneS3File',
                 array(
-                    'endpoint' => '//test.it',
                     'acceptedFiles' => 'image/*',
                     'directory' => 'images/sub1/sub2'
                 )
@@ -34,7 +33,7 @@ class DropzoneController extends FOSRestController
                 'dropzoneS3File'
             )
             ->getForm();
-        $form->submit(array('task1' => 'preexist'));
+        $form->submit(array('task1' => '//s3-eu-west-1.amazonaws.com/leandmsdev/images/sub1/sub2/1446149901933_cantina_web.jpg'));
 
         return ['form' => $form];
     }

@@ -24,6 +24,8 @@ Installation
 
 All the installation instructions are located in the documentation.
 
+private | public-read | public-read-write | authenticated-read | bucket-owner-read | bucket-owner-full-control
+
 License
 -------
 

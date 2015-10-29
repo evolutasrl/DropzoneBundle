@@ -22,7 +22,7 @@ class DropzoneS3FileType extends AbstractType
         $this->configurations = array(
             'endpoint' => $endpoint,
             'accessKey' => $accessKey,
-            'acl' => 'private',
+            'acl' => 'public-read',
             'successStatus' => 201,
             'policy' => null,
             'signature' => null,

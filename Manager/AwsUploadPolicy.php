@@ -20,7 +20,7 @@ class AwsUploadPolicy
      * @param $expireAt
      * @param $successStatus
      */
-    public function __construct($bucket, $secret, $acl = "private", $expireAt = "+1 hours", $successStatus = 201)
+    public function __construct($bucket, $secret, $acl = "public-read", $expireAt = "+1 hours", $successStatus = 201)
     {
         $this->acl = $acl;
         $this->bucket = $bucket;
