@@ -43,10 +43,8 @@
                 dictMaxFilesExceeded: '{{ "DropzoneBundle.dictMaxFilesExceeded"|trans }}',
 
                 init: function () {
-                    //Init if there is something in the text field
                     if ($("input#{{ id }}").val() != "") {
                         $("#droparea-{{ name }}").hide();
-                        //$("#droparea-{{ name }}-currentfile").html(this.options.previewTemplate);
                     }
 
 
