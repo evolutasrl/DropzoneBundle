@@ -71,35 +71,7 @@ class AwsUploadPolicy
                 ),
             )
         );
-//
-//        echo  $jsonPolicy;
-//
-//        $accesskey = 'AKIAJDHYBWBHOSUL63WA';
-//        $secret = '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';
-//        $bucket = 'leandmsdev';
-//        echo $this->successStatus;
-//        $jsonPolicy = json_encode(
-//            array(
-//                'expiration' => date('Y-m-d\TG:i:s\Z', strtotime('+1 hours')),
-//                'conditions' => array(
-//                    array(
-//                        'bucket' => $bucket,
-//                    ),
-//                    array(
-//                        'acl' => 'private',
-//                    ),
-//                    array(
-//                        'starts-with',
-//                        '$key',
-//                        '',
-//                    ),
-//                    array(
-//                        'success_action_status' => (string) $this->successStatus,
-//                    ),
-//                ),
-//            )
-//        );
-
+        
         return $jsonPolicy;
     }
 }
