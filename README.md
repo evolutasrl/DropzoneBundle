@@ -20,7 +20,7 @@ This bundle is well unit tested by phpspec.
 Installation
 ------------
 
-Installation is a quick (I promise!) 3 step process:
+Installation is a quick (I promise!) 4 step process:
 
 1. Download DropzoneBundle using composer
 2. Enable the Bundle
@@ -46,7 +46,7 @@ Enable the bundle in the kernel::
     {
         $bundles = array(
             // ...
-            new Evoluta\DropzoneBundle\DropzoneBundle(),
+            new Evoluta\DropzoneBundle\EvolutaDropzoneBundle(),
             // ...
         );
     }
@@ -70,8 +70,31 @@ Add the following configuration to your ``config.yml`` file.
     	accessKey: "%dropzone_accessKey%"
     	secret: "%dropzone_secret%"
     	bucket: "%dropzone_bucket%"
-    	
-###Step 4: Javascript and css
+
+###Step 4: Add twig configuration
+Add in your config.yml file the follow line
+
+``````
+- 'EvolutaDropzoneBundle:Form:fields.html.twig'
+
+``````
+
+Your config twig area will be like that
+
+
+``````
+twig:
+    debug:            "%kernel.debug%"
+    strict_variables: "%kernel.debug%"
+    globals:
+       _guardian_company: "@guardian.company.identity_factory"
+    form_themes:
+        - bootstrap_3_layout.html.twig
+        - 'EvolutaDropzoneBundle:Form:fields.html.twig'
+   
+`````` 	
+
+###Step 5: Javascript and css
 Todo: describe assets dump and declare in main template.
 
 Usage - upload single
