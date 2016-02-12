@@ -45,10 +45,9 @@ class AwsDropzoneController extends FOSRestController
 
 
     /**
-     * @Route("/api/aws_dropzone/uploadData", name="evoluta_dropzone_bundle.get_aws_auth_data")
+     * @Route("/uploadData", name="evoluta_dropzone_bundle.get_aws_auth_data")
      * @Method({"GET"})
      * @Rest\View
-     * @GuardianAnnotation(level="user", role="USER_DMO_ROLE")
      */
     public function getAuthDataAction(Request $request)
     {
@@ -60,6 +59,7 @@ class AwsDropzoneController extends FOSRestController
             "acl" => $request->get('acl', $this->defaultOptions['acl']),
             "successStatus" => $request->get('successStatus', $this->defaultOptions['successStatus']),
             "key" => uniqid().$request->get('filename'),
+            "secret" =>  $request->get('secret', $this->defaultOptions['secret']),
             "acceptedFiles" => $request->get('acceptedFiles', $this->defaultOptions['acceptedFiles']),
             "maxFilesize" => $request->get('maxFilesize', $this->defaultOptions['maxFilesize']),
             "directory" => $request->get('directory', $this->defaultOptions['directory']),

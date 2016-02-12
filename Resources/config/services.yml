@@ -10,7 +10,7 @@ services:
           - { name: form.type, alias: dropzoneS3File }
 
 
-    dropzoneBundle.aws_dropzone_controller:
+    dropzonebundle.aws_dropzone_controller:
         class: Evoluta\DropzoneBundle\Controller\AwsDropzoneController
         arguments:
           - "%dropzone_endpoint%"
