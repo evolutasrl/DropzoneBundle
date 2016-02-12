@@ -1,0 +1,4 @@
+evoluta_dropzonebundle.awsdropzone:
+    path: /
+    defaults: { _controller: dropzoneBundle.aws_dropzone_controller }
+
