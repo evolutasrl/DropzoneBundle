@@ -1,6 +1,6 @@
 {% block dropzoneS3File_widget %}
     {% spaceless %}
-        <div {{ block('widget_container_attributes') }}>
+        <div>
             {{- block('form_widget_simple') -}}
             <div id="droparea-{{ name }}-errors"></div>
             <div id="droparea-{{ name }}-currentfile" class="dropzone-selected-file">
@@ -65,7 +65,13 @@
                         $("#droparea-{{ name }}-errors").html('');
                         var directory = ("{{ directory }}") ? "{{ directory }}/" : "";
                         var name = directory + new Date().getTime() + "_" + file.name.toLowerCase().replace(/ +/g, '-');
-                        $("input#{{ id }}").val("{{ endpoint }}{{ bucket }}/" + name);
+
+                        $("input#{{ id }}").attr("value","{{ endpoint }}{{ bucket }}/" + name);
+
+                        console.log("{{ endpoint }}{{ bucket }}/" + name);
+                        console.log("input#{{ id }}");
+
+
                         formData.append("AWSAccessKeyId", "{{ accessKey }}");
                         formData.append("acl", "{{ acl }}");
                         formData.append("success_action_status", "{{ successStatus }}");
