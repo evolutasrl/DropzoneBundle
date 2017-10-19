@@ -1,15 +1,16 @@
 {% block dropzoneS3File_widget %}
     {% spaceless %}
         <div>
+            {%- set type = 'hidden' -%}
             {{- block('form_widget_simple') -}}
-            <div id="droparea-{{ name }}-errors"></div>
-            <div id="droparea-{{ name }}-currentfile" class="dropzone-selected-file">
+            <div id="droparea-{{ id }}-errors"></div>
+            <div id="droparea-{{ id }}-currentfile" class="dropzone-selected-file">
                 {% if value %}
                 <div class="dz-preview dz-processing dz-image-preview dz-success">
                     <div class="dz-details">
                         <div class="dz-filename"><span data-dz-name=""><i class="ti ti-clip"></i> {{ value|split('/')|last }}</span></div>
                         {% if value matches '/\.(jpg|jpeg|png|gif)(?:[\?\#].*)?$/i' %}
-                            <img data-dz-thumbnail="" alt="cantina_web.jpg" src="{{ value }}">
+                            <img data-dz-thumbnail="" alt="image" src="{{ value }}">
                         {% endif %}
                     </div>
 
@@ -17,15 +18,16 @@
                 </div>
                 {% endif %}
             </div>
-            <div id="droparea-{{ name }}" class="dropzone"></div>
+            <div id="droparea-{{ id }}" class="dropzone"></div>
         </div>
         <script>
 
 
-            $("input#{{ id }}").hide();
+            {#$("input#{{ id }}").hide();#}
+
             Dropzone.autoDiscover = false;
 
-            $("div#droparea-{{ name }}").dropzone({
+            $("div#droparea-{{ id }}").dropzone({
                 url: '{{ endpoint }}{{ bucket }}/',
                 autoDiscover: false,
                 acceptedFiles: "{{ acceptedFiles }}",
@@ -44,33 +46,29 @@
 
                 init: function () {
                     if ($("input#{{ id }}").val() != "") {
-                        $("#droparea-{{ name }}").hide();
+                        $("#droparea-{{ id }}").hide();
                     }
 
 
                     this.on("success", function (file) {
-                        $("#droparea-{{ name }}-errors").html('');
-                        $("#droparea-{{ name }}-currentfile").html(file.previewElement);
-                        $("#droparea-{{ name }}").hide();
+                        $("#droparea-{{ id }}-errors").html('');
+                        $("#droparea-{{ id }}-currentfile").html(file.previewElement);
+                        $("#droparea-{{ id }}").hide();
                     });
 
                     this.on("error", function (file, error) {
                         $("input#{{ id }}").val('');
-                        $("#droparea-{{ name }}-errors").html('<div  class="alert alert-dismissable alert-danger m-xs ml-n  mr-n">' + error + '</div>');
+                        $("#droparea-{{ id }}-errors").html('<div  class="alert alert-dismissable alert-danger m-xs ml-n  mr-n">' + error + '</div>');
                         this.removeFile(file);
-                        $("#droparea-{{ name }}").show();
+                        $("#droparea-{{ id }}").show();
                     });
 
                     this.on("sending", function (file, xhr, formData) {
-                        $("#droparea-{{ name }}-errors").html('');
+                        $("#droparea-{{ id }}-errors").html('');
                         var directory = ("{{ directory }}") ? "{{ directory }}/" : "";
                         var name = directory + new Date().getTime() + "_" + file.name.toLowerCase().replace(/ +/g, '-');
 
                         $("input#{{ id }}").attr("value","{{ endpoint }}{{ bucket }}/" + name);
-
-                        console.log("{{ endpoint }}{{ bucket }}/" + name);
-                        console.log("input#{{ id }}");
-
 
                         formData.append("AWSAccessKeyId", "{{ accessKey }}");
                         formData.append("acl", "{{ acl }}");
@@ -82,15 +80,15 @@
 
                     this.on("removedfile", function (file) {
                         $("input#{{ id }}").val('');
-                        $("#droparea-{{ name }}").show();
+                        $("#droparea-{{ id }}").show();
                     });
                 }
             });
 
             function removeFile{{ id }}(){
-                $("#droparea-{{ name }}-currentfile").html('');
+                $("#droparea-{{ id }}-currentfile").html('');
                 $("input#{{ id }}").val('');
-                $("#droparea-{{ name }}").show();
+                $("#droparea-{{ id }}").show();
             }
         </script>
     {% endspaceless %}

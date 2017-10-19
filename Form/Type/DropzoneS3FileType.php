@@ -7,6 +7,8 @@ use Evoluta\DropzoneBundle\Manager\AwsUploadPolicy;
 use Evoluta\DropzoneBundle\Manager\S3BrowserUploadManagerInterface;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
@@ -37,14 +39,14 @@ class DropzoneS3FileType extends AbstractType
         );
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return "dropzoneS3File";
     }
 
     public function getParent()
     {
-        return "url";
+        return HiddenType::class;
     }
 
     public function configureOptions(OptionsResolver $optionsResolver)
