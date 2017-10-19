@@ -2,9 +2,11 @@
 
 namespace spec\Evoluta\DropzoneBundle\Form\Type;
 
+use Evoluta\DropzoneBundle\Form\Type\DropzoneS3FileType;
 use Evoluta\DropzoneBundle\Manager\S3BrowserUploadManagerInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 class DropzoneS3FileTypeSpec extends ObjectBehavior
 {
@@ -21,12 +23,12 @@ class DropzoneS3FileTypeSpec extends ObjectBehavior
 
     public function it_should_return_name()
     {
-        $this->getName()->shouldReturn('dropzoneS3File');
+        $this->getName()->shouldReturn(DropzoneS3FileType::class);
     }
 
     public function it_should_return_parent()
     {
-        $this->getParent()->shouldReturn('url');
+        $this->getParent()->shouldReturn(HiddenType::class);
     }
 
     public function it_can_configure_option_resolver($resolver)
