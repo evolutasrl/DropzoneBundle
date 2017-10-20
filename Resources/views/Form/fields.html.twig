@@ -1,10 +1,12 @@
 {% block dropzoneS3File_widget %}
     {% spaceless %}
-        <div>
-            {%- set type = 'hidden' -%}
-            {{- block('form_widget_simple') -}}
-            <div id="droparea-{{ id }}-errors"></div>
-            <div id="droparea-{{ id }}-currentfile" class="dropzone-selected-file">
+        <div class="dropzoneBundle-area-{{ id }}" {{ block('widget_attributes') }} >
+            {#{%- set type = 'hidden' -%}#}
+            {#{{- block('form_widget_simple') -}}#}
+            <input type="hidden"  {{ block('widget_attributes') }}  class="dropzoneBundle-area-field" value="{{ value }}" />
+
+            <div class="errors"></div>
+            <div class="dropzone-selected-file current-file">
                 {% if value %}
                 <div class="dz-preview dz-processing dz-image-preview dz-success">
                     <div class="dz-details">
@@ -14,82 +16,48 @@
                         {% endif %}
                     </div>
 
-                    <a class="dz-remove" href="javascript:removeFile{{ id }}()">Rimuovi</a>
+                    <a href="javascript:undefined;" class="dz-preset-field-remove">Rimuovi</a>
                 </div>
                 {% endif %}
+
             </div>
-            <div id="droparea-{{ id }}" class="dropzone"></div>
+            <div class="dropzone-container">
+
+                <div  class="dropzonez dropzone"></div>
+            </div>
         </div>
         <script>
 
+            console.log($('.dropzoneBundle-area-{{ id }}'));
 
-            {#$("input#{{ id }}").hide();#}
 
             Dropzone.autoDiscover = false;
 
-            $("div#droparea-{{ id }}").dropzone({
-                url: '{{ endpoint }}{{ bucket }}/',
-                autoDiscover: false,
-                acceptedFiles: "{{ acceptedFiles }}",
-                maxFiles: 1,
-                addRemoveLinks: true,
-                maxFilesize: {{ maxFilesize }},
-                dictDefaultMessage: '{{ "DropzoneBundle.dictDefaultMessageSingle"|trans }}',
-                dictFallbackMessage: '{{ "DropzoneBundle.dictFallbackMessage"|trans }}',
-                dictInvalidFileType: '{{ "DropzoneBundle.dictInvalidFileType"|trans }}',
-                dictFileTooBig: '{{ "DropzoneBundle.dictFileTooBig"|trans }}',
-                dictResponseError: '{{ "DropzoneBundle.dictResponseError"|trans }}',
-                dictCancelUpload: '{{ "DropzoneBundle.dictCancelUpload"|trans }}',
-                dictCancelUploadConfirmation: '{{ "DropzoneBundle.dictCancelUploadConfirmation"|trans }}',
-                dictRemoveFile: '{{ "DropzoneBundle.dictRemoveFile"|trans }}',
-                dictMaxFilesExceeded: '{{ "DropzoneBundle.dictMaxFilesExceeded"|trans }}',
-
-                init: function () {
-                    if ($("input#{{ id }}").val() != "") {
-                        $("#droparea-{{ id }}").hide();
-                    }
-
-
-                    this.on("success", function (file) {
-                        $("#droparea-{{ id }}-errors").html('');
-                        $("#droparea-{{ id }}-currentfile").html(file.previewElement);
-                        $("#droparea-{{ id }}").hide();
-                    });
-
-                    this.on("error", function (file, error) {
-                        $("input#{{ id }}").val('');
-                        $("#droparea-{{ id }}-errors").html('<div  class="alert alert-dismissable alert-danger m-xs ml-n  mr-n">' + error + '</div>');
-                        this.removeFile(file);
-                        $("#droparea-{{ id }}").show();
-                    });
-
-                    this.on("sending", function (file, xhr, formData) {
-                        $("#droparea-{{ id }}-errors").html('');
-                        var directory = ("{{ directory }}") ? "{{ directory }}/" : "";
-                        var name = directory + new Date().getTime() + "_" + file.name.toLowerCase().replace(/ +/g, '-');
-
-                        $("input#{{ id }}").attr("value","{{ endpoint }}{{ bucket }}/" + name);
-
-                        formData.append("AWSAccessKeyId", "{{ accessKey }}");
-                        formData.append("acl", "{{ acl }}");
-                        formData.append("success_action_status", "{{ successStatus }}");
-                        formData.append("policy", "{{ policy }}");
-                        formData.append("signature", "{{ signature }}");
-                        formData.append("key", name);
-                    });
-
-                    this.on("removedfile", function (file) {
-                        $("input#{{ id }}").val('');
-                        $("#droparea-{{ id }}").show();
-                    });
-                }
+            $('.dropzoneBundle-area-{{ id }}').dropzoneBundle({
+                'url': '{{ endpoint }}{{ bucket }}',
+                'autoDiscover': false,
+                'acceptedFiles': "{{ acceptedFiles }}",
+                'maxFiles': 1,
+                'addRemoveLinks': true,
+                'maxFilesize': {{ maxFilesize }},
+                'dictDefaultMessage': '{{ "DropzoneBundle.dictDefaultMessageSingle"|trans }}',
+                'dictFallbackMessage': '{{ "DropzoneBundle.dictFallbackMessage"|trans }}',
+                'dictInvalidFileType': '{{ "DropzoneBundle.dictInvalidFileType"|trans }}',
+                'dictFileTooBig': '{{ "DropzoneBundle.dictFileTooBig"|trans }}',
+                'dictResponseError': '{{ "DropzoneBundle.dictResponseError"|trans }}',
+                'dictCancelUpload': '{{ "DropzoneBundle.dictCancelUpload"|trans }}',
+                'dictCancelUploadConfirmation': '{{ "DropzoneBundle.dictCancelUploadConfirmation"|trans }}',
+                'dictRemoveFile': '{{ "DropzoneBundle.dictRemoveFile"|trans }}',
+                'dictMaxFilesExceeded': '{{ "DropzoneBundle.dictMaxFilesExceeded"|trans }}',
+                'accessKey': '{{ accessKey }}',
+                'acl': '{{ acl }}',
+                'successStatus': '{{ successStatus }}',
+                'policy': '{{ policy }}',
+                'signature': '{{ signature }}',
+                'directory': '{{ directory }}'
             });
 
-            function removeFile{{ id }}(){
-                $("#droparea-{{ id }}-currentfile").html('');
-                $("input#{{ id }}").val('');
-                $("#droparea-{{ id }}").show();
-            }
+
         </script>
     {% endspaceless %}
 {% endblock %}
