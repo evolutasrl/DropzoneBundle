@@ -13,7 +13,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Validator\Constraints\Valid;
 
 
 class DropzoneS3FileType extends AbstractType
@@ -35,7 +36,8 @@ class DropzoneS3FileType extends AbstractType
             'bucket' => $bucket,
             'secret' => $secret,
             'acceptedFiles' => null,
-            'expireAt' => date('Y-m-d\TG:i:s\Z', strtotime('+1 hours'))
+            'expireAt' => date('Y-m-d\TG:i:s\Z', strtotime('+1 hours')),
+            'constraints' => new Valid()
         );
     }
 
@@ -49,9 +51,9 @@ class DropzoneS3FileType extends AbstractType
         return HiddenType::class;
     }
 
-    public function configureOptions(OptionsResolver $optionsResolver)
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $optionsResolver->setDefaults(
+        $resolver->setDefaults(
             $this->configurations
         );
     }
