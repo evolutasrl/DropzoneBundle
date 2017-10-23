@@ -1,3 +1,10 @@
+
+{% block dropzoneS3File_row %}
+    {{ form_label(form) }}
+    {{ form_widget(form) }}
+    {{ form_errors(form) }}
+{% endblock %}
+
 {% block dropzoneS3File_widget %}
     {% spaceless %}
         <div class="dropzoneBundle-area-{{ id }}" {{ block('widget_attributes') }} >
@@ -5,7 +12,7 @@
             {#{{- block('form_widget_simple') -}}#}
             <input type="hidden"  {{ block('widget_attributes') }}  class="dropzoneBundle-area-field" value="{{ value }}" />
 
-            <div class="errors"></div>
+
             <div class="dropzone-selected-file current-file">
                 {% if value %}
                 <div class="dz-preview dz-processing dz-image-preview dz-success">
@@ -59,5 +66,8 @@
 
 
         </script>
+
+
     {% endspaceless %}
 {% endblock %}
+
