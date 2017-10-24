@@ -51,7 +51,7 @@ class DropzoneS3FileType extends AbstractType
         return HiddenType::class;
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
             $this->configurations
