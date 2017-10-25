@@ -37,7 +37,8 @@ class DropzoneS3FileType extends AbstractType
             'secret' => $secret,
             'acceptedFiles' => null,
             'expireAt' => date('Y-m-d\TG:i:s\Z', strtotime('+1 hours')),
-            'constraints' => new Valid()
+            'constraints' => new Valid(),
+            'error_bubbling' => false
         );
     }
 
