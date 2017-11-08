@@ -16,7 +16,7 @@
     "symfony/framework-bundle": "~2.7",
     "symfony/twig-bundle": "~2.3",
     "symfony/form": "~2.3",
-    "symfony/validator": "~3.3"
+    "symfony/validator": "~2.8"
   },
   "require-dev": {
     "phpspec/phpspec": "~2.1"
